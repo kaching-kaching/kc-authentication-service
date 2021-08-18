@@ -8,6 +8,20 @@
 ## Configuration
 Example
 ```yaml
+server:
+  port: 8080
+spring:
+  application:
+    name: kaching-authentication
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kaching_authentication_db
+    username: admin
+    password: admin
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
 kaching:
   google:
     refreshToken:
@@ -16,7 +30,7 @@ kaching:
 
 ## Author
 
-👤 **Kaching**
+👤 **Kaching Team**
 
 * Website: https://github.com/kaching-kaching
 * Github: [@kaching-kaching](https://github.com/kaching-kaching)
