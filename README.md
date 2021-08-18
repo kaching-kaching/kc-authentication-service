@@ -8,7 +8,7 @@
 ## Configuration
 Example
 ```yaml
-config:
+kaching:
   google:
     refreshToken:
       path: firebase/kaching-323210-ddd1c79606da.json
