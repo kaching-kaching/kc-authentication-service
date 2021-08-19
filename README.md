@@ -22,6 +22,9 @@ spring:
     hibernate:
       ddl-auto: create
     generate-ddl: true
+  data:
+    rest:
+      base-path: api
 kaching:
   google:
     refreshToken:
