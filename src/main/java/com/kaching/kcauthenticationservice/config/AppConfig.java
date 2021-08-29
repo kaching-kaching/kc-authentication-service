@@ -14,7 +14,7 @@ import java.io.IOException;
 @Configuration
 public class AppConfig {
 
-    @Value("${config.google.refreshToken.path}")
+    @Value("${kaching.google.refreshToken.path}")
     private String googleRefreshTokenPath;
 
     @Bean
