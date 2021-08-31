@@ -15,5 +15,4 @@ public class BaseController {
     public ResponseEntity<Object> responseCreated() {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 }
