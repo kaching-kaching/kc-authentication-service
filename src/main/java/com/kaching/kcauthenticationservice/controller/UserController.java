@@ -56,6 +56,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginTokenDto> login(@Valid @RequestBody LoginRequest request) {
+
         log.info("Request: [{}]", request.toString());
 
         var firebaseToken =
