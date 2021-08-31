@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class BaseController {
+
     public ResponseEntity<Object> responseOk() {
         return ResponseEntity.ok().build();
     }
