@@ -1,0 +1,77 @@
+version: 2.1
+
+executors:
+  kaching-executor:
+    docker:
+      - image: cimg/openjdk:11.0
+
+jobs:
+  build:
+    executor: kaching-executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+      - run:
+          name: Build
+          command: mvn -s .circleci.settings.xml -DskipTests clean install
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./
+  test:
+    executor: kaching-executor
+    steps:
+      - attach_workspace:
+          at: /home/circleci/project
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+      - run:
+          name: Test
+          command: mvn test
+  push:
+    executor: kaching-executor
+    steps:
+      - attach_workspace:
+          at: /home/circleci/project
+      - setup_remote_docker:
+          version: 19.03.13
+      - run:
+          name: Login to Docker Hub
+          command: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      - run:
+          name: Build image
+          command: docker build -f docker/Dockerfile -t $DOCKER_USER/kc-authentication:latest .
+      - run:
+          name: Push image to registry
+          command: docker push $DOCKER_USER/kc-authentication:latest
+
+workflows:
+  sample:
+    jobs:
+      - build:
+          context: kaching-context
+      - test:
+          context: kaching-context
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: main
+      - push:
+          context: kaching-context
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main
+                - develop

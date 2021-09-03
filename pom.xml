@@ -16,6 +16,13 @@
     <properties>
         <java.version>11</java.version>
     </properties>
+    <repositories>
+        <repository>
+            <id>kaching-nexus</id>
+            <name>Kaching Nexus repository</name>
+            <url>http://46.101.118.26:8081/repository/kaching/</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
