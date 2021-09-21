@@ -10,6 +10,7 @@ import com.kaching.kcauthenticationservice.gateway.CommandGateway;
 import com.kaching.kcauthenticationservice.request.LoginRequest;
 import com.kaching.kcauthenticationservice.request.RegisterUserRequest;
 import com.kaching.kcauthenticationservice.request.WebClientLoginRequest;
+import com.kaching.libidentity.annotation.PublicApi;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -31,7 +29,7 @@ import java.util.Optional;
 @RestController
 @FieldDefaults(makeFinal = true)
 @Slf4j(topic = "[UserController]")
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = "/user")
 public class UserController extends BaseController {
 
     private CommandGateway commandGateway;
@@ -43,6 +41,7 @@ public class UserController extends BaseController {
         this.webClient = webClient;
     }
 
+    @PublicApi
     @PostMapping("/register")
     public ResponseEntity<Object> registerUser(@Valid @RequestBody RegisterUserRequest request) {
         var command = RegisterUserCommand.builder()
@@ -54,6 +53,7 @@ public class UserController extends BaseController {
         return responseOk();
     }
 
+    @PublicApi
     @PostMapping("/login")
     public ResponseEntity<LoginTokenDto> login(@Valid @RequestBody LoginRequest request) {
         log.info("Request: [{}]", request.toString());
