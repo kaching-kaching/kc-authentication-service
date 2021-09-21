@@ -28,7 +28,7 @@ spring:
 kaching:
   google:
     refreshToken:
-      path: firebase/kaching-323210-ddd1c79606da.json
+      path: firebase/firebase-refresh-token.json
     webClient:
       signInHost: https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword
       apiKey: [YOUR_API_KEY]
